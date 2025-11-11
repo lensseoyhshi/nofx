@@ -1,0 +1,34 @@
+{
+  "traders": [
+    {
+      "id": "my_trader",
+      "name": "我的AI交易员",
+      "ai_model": "deepseek",
+      "exchange": "binance",
+      
+      "binance_api_key": "PMDjX5VHZSCbUaNJFLJsmvEIv2rDxNQu0utpoDXWBrQ9n1fxNUF58rzzHfKDDh2h",
+      "binance_secret_key": "g5ijk4RUv2mTKkEf6n6UtFxrN5sNaDF4Upxi4VhIo5ni7M14qSZAb2kOpPfXtL2L",
+      
+      "use_qwen": false,
+      "deepseek_key": "sk-c723e5acaf7b4778ad7b0892f9853c6f",
+      "qwen_key": "",
+      "initial_balance": 300.0,
+      "scan_interval_minutes": 3
+    }
+  ],
+  "leverage": {
+    "btc_eth_leverage": 5,
+    "altcoin_leverage": 5
+  },
+  "use_default_coins": true,
+  "coin_pool_api_url": "",
+  "oi_top_api_url": "",
+  "api_server_port": 8080,
+  "max_daily_loss": 10.0,
+  "max_drawdown": 20.0,
+  "stop_trading_minutes": 60
+}
+
+
+
+
