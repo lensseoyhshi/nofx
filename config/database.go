@@ -841,26 +841,32 @@ func (d *Database) UpdateExchange(userID, id string, enabled bool, apiKey, secre
 		var name, typ string
 		if id == "binance" {
 			name = "Binance Futures"
-			typ = "cex"
+			typ = "binance" // ✅ 修复：使用交易所类型标识符
 		} else if id == "hyperliquid" {
 			name = "Hyperliquid"
-			typ = "dex"
+			typ = "hyperliquid" // ✅ 修复：使用交易所类型标识符
 		} else if id == "aster" {
 			name = "Aster DEX"
-			typ = "dex"
+			typ = "aster" // ✅ 修复：使用交易所类型标识符
 		} else {
+			// 未知的交易所，尝试从ID推断类型
 			name = id + " Exchange"
-			typ = "cex"
+			typ = id
 		}
 
 		log.Printf("🆕 UpdateExchange: 创建新记录 ID=%s, name=%s, type=%s", id, name, typ)
+
+		// ✅ 修复：加密敏感字段
+		encryptedAPIKey := d.encryptSensitiveData(apiKey)
+		encryptedSecretKey := d.encryptSensitiveData(secretKey)
+		encryptedAsterPrivateKey := d.encryptSensitiveData(asterPrivateKey)
 
 		// 创建用户特定的配置，使用原始的交易所ID
 		_, err = d.db.Exec(`
 			INSERT INTO exchanges (id, user_id, name, type, enabled, api_key, secret_key, testnet,
 			                       hyperliquid_wallet_addr, aster_user, aster_signer, aster_private_key, created_at, updated_at)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
-		`, id, userID, name, typ, enabled, apiKey, secretKey, testnet, hyperliquidWalletAddr, asterUser, asterSigner, asterPrivateKey)
+		`, id, userID, name, typ, enabled, encryptedAPIKey, encryptedSecretKey, testnet, hyperliquidWalletAddr, asterUser, asterSigner, encryptedAsterPrivateKey)
 
 		if err != nil {
 			log.Printf("❌ UpdateExchange: 创建记录失败: %v", err)
