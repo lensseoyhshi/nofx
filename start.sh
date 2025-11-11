@@ -282,8 +282,8 @@ start() {
     fi
 
     print_success "服务已启动！"
-    print_info "Web 界面: http://localhost:${NOFX_FRONTEND_PORT}"
-    print_info "API 端点: http://localhost:${NOFX_BACKEND_PORT}"
+    print_info "Web 界面: http://38.180.188.19:${NOFX_FRONTEND_PORT}"
+    print_info "API 端点: http://38.180.188.19:${NOFX_BACKEND_PORT}"
     print_info ""
     print_info "查看日志: ./start.sh logs"
     print_info "停止服务: ./start.sh stop"
